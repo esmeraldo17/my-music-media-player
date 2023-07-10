@@ -49,7 +49,7 @@ body{
 }
 
 .top-bar i {
-    font-size: 12px;
+    font-size: 28px;
     color: var(--lightblack)
 }
 
@@ -136,7 +136,7 @@ body{
 }
 
 .controls i{
-    font-size: 8px;
+    font-size: 28px;
     user-select: none;
     background: linear-gradient( var(--pink) 0%, var(--violet) 100%);
     background-clip: text;
@@ -146,7 +146,7 @@ body{
 
 .controls i:nth-child(2),
 .controls i:nth-child(4){
-    font-size: 10px;
+    font-size: 34px;
 }
 
 .controls #prev{

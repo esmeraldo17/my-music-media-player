@@ -5,7 +5,9 @@ musicImg = wrapper.querySelector(".img-area img"),
 musicName = wrapper.querySelector(".song-details .name"),
 musicArtist = wrapper.querySelector(".song-details .artist"),
 mainAudio = wrapper.querySelector("#main-audio"),
-playPauseBtn = wrapper.querySelector('.play-pause');
+playPauseBtn = wrapper.querySelector(".play-pause"),
+prevBtn = wrapper.querySelector("#prev"),
+nextBtn = wrapper.querySelector("#next");
 
 let musicIndex = 2;
 
@@ -21,23 +23,49 @@ const loadMusic = (index) => {
     mainAudio.src = `songs/${allMusic[index -1].src}.mp3`;
 };
 
-// playMusic
+// playMusic function
 const playMusic = () => {
     wrapper.classList.add("paused");
     playPauseBtn.querySelector("i").innerText = "pause";
     mainAudio.play();
 }
 
-// puseMusic
+// puseMusic function
 const pauseMusic = () => {
     wrapper.classList.remove("paused");
     playPauseBtn.querySelector("i").innerText = "play_arrow";
     mainAudio.pause();
 }
 
-// play button
+// nextMusic function
+const nextMusic = () => {
+    musicIndex ++;
+    musicIndex > allMusic.length ? musicIndex = 1 : musicIndex = musicIndex;
+    loadMusic(musicIndex);
+    playMusic();
+}
+
+// prevMusic function
+const prevMusic = () => {
+    musicIndex --;
+    musicIndex < 1 ? musicIndex = allMusic.length : musicIndex = musicIndex;
+    loadMusic(musicIndex);
+    playMusic();
+}
+
+// play button event
 playPauseBtn.addEventListener("click", () => {
     const isMusicPaused = wrapper.classList.contains("paused");
     //if isMusicPaused is true then call pauseMusic else call playMusic
     isMusicPaused ? pauseMusic() : playMusic();
+})
+
+// next button event
+nextBtn.addEventListener("click", () => {
+    nextMusic();
+})
+
+// prev button event
+prevBtn.addEventListener("click", () => {
+    prevMusic();
 })
