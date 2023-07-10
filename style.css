@@ -28,6 +28,8 @@ body{
 }
 
 .wrapper{
+    position: relative;
+    overflow: hidden;
     width: 300px;
     padding: 25px 30px;
     border-radius: 15px;
@@ -39,7 +41,8 @@ body{
     cursor: pointer;
 }
 
-.top-bar, .progress-area .timer{
+.top-bar, .progress-area .timer,
+.controls, .music-list .header, .music-list li{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -126,4 +129,140 @@ body{
 .timer span{
     font-size: 13px;
     color: var(--lightblack);
+}
+
+.controls{
+    margin: 40px 0 5px 0;
+}
+
+.controls i{
+    font-size: 8px;
+    user-select: none;
+    background: linear-gradient( var(--pink) 0%, var(--violet) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.controls i:nth-child(2),
+.controls i:nth-child(4){
+    font-size: 10px;
+}
+
+.controls #prev{
+    margin-right: -13px;
+}
+
+.controls #next{
+    margin-left: -13px;
+}
+
+.controls .play-pause{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    background: linear-gradient( var(--white) 0%, var(--darkwhite) 100%);
+    box-shadow: 0 0 5px var(--pink);
+    border-radius: 50%;
+}
+
+.play-pause::before{
+    content: " ";
+    position: absolute;
+    height: 43px;
+    width: 43px;
+    border-radius: inherit;
+    background: linear-gradient( var(--pink) 0%, var(--violet) 100%);
+}
+
+.play-pause i{
+    width: 43px;
+    height: 43px;
+    line-height: 43px;
+    text-align: center;
+    border-radius: inherit;
+    background: inherit;
+    position: relative;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.music-list{
+    width: 100%;
+    padding: 15px 30px;
+    position: absolute;
+    left: 0;
+    bottom: -55%;
+    opacity: 0; 
+    pointer-events: none;
+    border-radius: 15px;
+    box-shadow: 0px -5px 10px rgba(0,0,0,0.1);
+    background: var(--white);
+    transition: all 0.14 ease;
+}
+
+/* Show class will be used in javascript */
+.music-list.show{
+    bottom: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.music-list .header .row{
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    color: var(--lightblack);
+}
+
+.header .row i{
+    cursor: default;
+}
+
+.header .row span{
+    margin-left: 5px;
+}
+
+.header #close{
+    font-size: 12px;
+    color: var(--lightblack);
+}
+
+.music-list ul{
+    margin: 10px 0;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.music-list ul::-webkit-scrollbar{
+    width: 0px;
+}
+
+.music-list ul li{
+    cursor: pointer;
+    list-style: none;
+    color: var(--lightblack);
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.music-list ul li:last-child{
+    border-bottom: 0px;
+}
+
+.music-list ul li .row span{
+    font-size: 17px;
+}
+
+ul li .row p{
+    opacity: 0.8;
+}
+
+
+ul li .audio-duration{
+    font-size: 16px;
 }
