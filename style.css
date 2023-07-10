@@ -19,3 +19,44 @@
     --pinkshadow: #ffcbdd;
     --lightbshadow: rgba(0,0,0,0.15);
 }
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.wrapper{
+    width: 300px;
+    padding: 25px 30px;
+    border-radius: 15px;
+    background: var(--white);
+    box-shadow: 0px 6px 15px var(--lightbshadow)
+}
+
+.wrapper i{
+    cursor: pointer;
+}
+
+.top-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-bar i {
+    font-size: 12px;
+    color: var(--lightblack)
+}
+
+.top-bar span{
+    font-size: 18px;
+    color: var(--lightblack)
+}
+
+.img-area{
+    height: 256px;
+    width: 100%;
+    box-shadow: 0px 6px 15px var(--lightbshadow)
+}
