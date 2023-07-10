@@ -8,7 +8,8 @@ mainAudio = wrapper.querySelector("#main-audio"),
 playPauseBtn = wrapper.querySelector(".play-pause"),
 prevBtn = wrapper.querySelector("#prev"),
 nextBtn = wrapper.querySelector("#next"),
-progressBar = wrapper.querySelector(".progress-bar");
+progressBar = wrapper.querySelector(".progress-bar"),
+progressArea = wrapper.querySelector(".progress-area");
 
 let musicIndex = 2;
 
@@ -71,8 +72,8 @@ prevBtn.addEventListener("click", () => {
     prevMusic();
 })
 
-// update progress bar width according to de music
 
+// update progress bar width according to de music
 mainAudio.addEventListener("timeupdate", (e) => {
      const { currentTime } = e.target;
      const { duration } = e.target;
@@ -96,9 +97,18 @@ mainAudio.addEventListener("timeupdate", (e) => {
     //update song current time
     let currentMin = Math.floor(currentTime / 60);
     let currentSec = Math.floor(currentTime % 60);
-    console.log(`${currentMin}:${currentSec}`);
     if(currentSec < 10){
         currentSec= `0${currentSec}`;
     }
     musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
+})
+
+// update progress bar width according to his width
+progressArea.addEventListener("click", (e) => {
+    let progressWidthValue = progressArea.clientWidth;
+    let clickedOffsetX = e.offsetX;
+    let songDuration = mainAudio.duration;
+
+    mainAudio.currentTime = (clickedOffsetX / progressWidthValue) * songDuration;
+    playMusic();
 })
