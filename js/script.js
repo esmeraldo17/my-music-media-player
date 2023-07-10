@@ -17,7 +17,7 @@ hideMusicBtn = wrapper.querySelector("#close"),
 ulTag = wrapper.querySelector("ul");
 
 
-let musicIndex = 2;
+let musicIndex = Math.floor((Math.random() * allMusic.length) + 1 );;
 
 window.addEventListener("load", () => {
     loadMusic(musicIndex);//call loadMusic function once winddow load
@@ -52,6 +52,7 @@ const nextMusic = () => {
     musicIndex > allMusic.length ? musicIndex = 1 : musicIndex = musicIndex;
     loadMusic(musicIndex);
     playMusic();
+    playingNow();
 }
 
 // prevMusic function
@@ -60,6 +61,7 @@ const prevMusic = () => {
     musicIndex < 1 ? musicIndex = allMusic.length : musicIndex = musicIndex;
     loadMusic(musicIndex);
     playMusic();
+    playingNow();
 }
 
 // play button event
@@ -67,6 +69,7 @@ playPauseBtn.addEventListener("click", () => {
     const isMusicPaused = wrapper.classList.contains("paused");
     //if isMusicPaused is true then call pauseMusic else call playMusic
     isMusicPaused ? pauseMusic() : playMusic();
+    playingNow();
 })
 
 // next button event
@@ -93,8 +96,9 @@ mainAudio.addEventListener("timeupdate", (e) => {
      mainAudio.addEventListener("loadeddata", () => {
         //update song total duration
         let audioDuration = mainAudio.duration;
-        let totalMin = Math.floor(duration / 60);
-        let totalSec = Math.floor(duration % 60);
+        let totalMin = Math.floor(audioDuration / 60);
+        console.log(totalMin)
+        let totalSec = Math.floor(audioDuration % 60);
         if(totalSec < 10){
             totalSec= `0${totalSec}`;
         }
@@ -162,6 +166,7 @@ mainAudio.addEventListener("ended", () => {
             musicIndex = randIndex;
             loadMusic(musicIndex);
             playMusic();
+            playingNow();
             break;
     }
 })
@@ -200,6 +205,7 @@ allMusic.map((e, index) => {
             totalSec= `0${totalSec}`;
         }
         liAudioDuration.innerText = `${totalMin}:${totalSec}`;
+        liAudioDuration.setAttribute("t-duration", `${totalMin}:${totalSec}`);
     })
 })
 
@@ -208,11 +214,16 @@ const allLiTags = ulTag.querySelectorAll("li");
 
 const playingNow = () => {
     allLiTags.forEach((e) => {
+        let audioTag = e.querySelector(".audio-duration")
+
         if(e.classList.contains("playing")){
             e.classList.remove("playing");
+            let  adDuration = audioTag.getAttribute("t-duration");
+            audioTag.innerText= adDuration;
         }
         if(e.getAttribute("li-index") == musicIndex){
             e.classList.add("playing");
+            audioTag.innerText= "Playing";
         }
         e.setAttribute("onclick", "clicked(this)")
     });
