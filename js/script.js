@@ -10,7 +10,11 @@ prevBtn = wrapper.querySelector("#prev"),
 nextBtn = wrapper.querySelector("#next"),
 progressBar = wrapper.querySelector(".progress-bar"),
 progressArea = wrapper.querySelector(".progress-area"),
-repeatBtn = wrapper.querySelector("#repeat-plist")
+repeatBtn = wrapper.querySelector("#repeat-plist"),
+musicList = wrapper.querySelector(".music-list"),
+showMoreBtn = wrapper.querySelector("#more-music"),
+hideMusicBtn = wrapper.querySelector("#close"),
+ulTag = wrapper.querySelector("ul");
 
 let musicIndex = 2;
 
@@ -87,8 +91,8 @@ mainAudio.addEventListener("timeupdate", (e) => {
      mainAudio.addEventListener("loadeddata", () => {
         //update song total duration
         let audioDuration = mainAudio.duration;
-        let totalMin = Math.floor(audioDuration / 60);
-        let totalSec = Math.floor(audioDuration % 60);
+        let totalMin = Math.floor(duration / 60);
+        let totalSec = Math.floor(duration % 60);
         if(totalSec < 10){
             totalSec= `0${totalSec}`;
         }
@@ -158,4 +162,38 @@ mainAudio.addEventListener("ended", () => {
             playMusic();
             break;
     }
+})
+
+showMoreBtn.addEventListener("click", () => {
+    musicList.classList.toggle("show");
+})
+
+hideMusicBtn.addEventListener("click", () => {
+    showMoreBtn.click();
+})
+
+allMusic.map((e) => {
+    let litag = `<li>
+      <div class="row">
+          <span>${e.name}</span>
+          <p>${e.artist}</p>
+      </div>
+      <audio class="${e.src}" src="songs/${e.src}.mp3"></audio>
+      <span id="${e.src}"class="audio-duration">4:20</span>
+    </li>`;
+
+    ulTag.insertAdjacentHTML("beforeend", litag);
+
+    let liAudioTag = ulTag.querySelector(`.${e.src}`);
+    let liAudioDuration = ulTag.querySelector(`#${e.src}`);
+
+    liAudioTag.addEventListener("loadeddata", () =>{
+        let { duration } = liAudioTag;
+        let totalMin = Math.floor(duration / 60);
+        let totalSec = Math.floor(duration % 60);
+        if(totalSec < 10){
+            totalSec= `0${totalSec}`;
+        }
+        liAudioDuration.innerText = `${totalMin}:${totalSec}`;
+    })
 })
