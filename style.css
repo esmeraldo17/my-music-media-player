@@ -136,7 +136,7 @@ body{
 }
 
 .controls i{
-    font-size: 28px;
+    font-size: 8px;
     user-select: none;
     background: linear-gradient( var(--pink) 0%, var(--violet) 100%);
     background-clip: text;
@@ -146,7 +146,7 @@ body{
 
 .controls i:nth-child(2),
 .controls i:nth-child(4){
-    font-size: 34px;
+    font-size: 10px;
 }
 
 .controls #prev{
@@ -265,4 +265,9 @@ ul li .row p{
 
 ul li .audio-duration{
     font-size: 16px;
+}
+
+ul li.playing{
+    color: var(--violet);
+    pointer-events: none;
 }

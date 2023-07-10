@@ -16,10 +16,12 @@ showMoreBtn = wrapper.querySelector("#more-music"),
 hideMusicBtn = wrapper.querySelector("#close"),
 ulTag = wrapper.querySelector("ul");
 
+
 let musicIndex = 2;
 
 window.addEventListener("load", () => {
     loadMusic(musicIndex);//call loadMusic function once winddow load
+    playingNow();
 });
 
 //load music function
@@ -164,16 +166,19 @@ mainAudio.addEventListener("ended", () => {
     }
 })
 
+//show music list event
 showMoreBtn.addEventListener("click", () => {
     musicList.classList.toggle("show");
 })
 
+//hide music list event
 hideMusicBtn.addEventListener("click", () => {
     showMoreBtn.click();
 })
 
-allMusic.map((e) => {
-    let litag = `<li>
+//list all music
+allMusic.map((e, index) => {
+    let litag = `<li li-index=${index + 1}>
       <div class="row">
           <span>${e.name}</span>
           <p>${e.artist}</p>
@@ -197,3 +202,26 @@ allMusic.map((e) => {
         liAudioDuration.innerText = `${totalMin}:${totalSec}`;
     })
 })
+
+//play music in music-list on click
+const allLiTags = ulTag.querySelectorAll("li");
+
+const playingNow = () => {
+    allLiTags.forEach((e) => {
+        if(e.classList.contains("playing")){
+            e.classList.remove("playing");
+        }
+        if(e.getAttribute("li-index") == musicIndex){
+            e.classList.add("playing");
+        }
+        e.setAttribute("onclick", "clicked(this)")
+    });
+}
+
+const clicked = (element) =>{
+    let getIndex = element.getAttribute("li-index");
+    musicIndex= getIndex;
+    loadMusic(musicIndex);
+    playMusic();
+    playingNow();
+}
