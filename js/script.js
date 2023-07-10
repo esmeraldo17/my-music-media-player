@@ -9,7 +9,8 @@ playPauseBtn = wrapper.querySelector(".play-pause"),
 prevBtn = wrapper.querySelector("#prev"),
 nextBtn = wrapper.querySelector("#next"),
 progressBar = wrapper.querySelector(".progress-bar"),
-progressArea = wrapper.querySelector(".progress-area");
+progressArea = wrapper.querySelector(".progress-area"),
+repeatBtn = wrapper.querySelector("#repeat-plist")
 
 let musicIndex = 2;
 
@@ -111,4 +112,50 @@ progressArea.addEventListener("click", (e) => {
 
     mainAudio.currentTime = (clickedOffsetX / progressWidthValue) * songDuration;
     playMusic();
+})
+
+//change repeat button icon and title
+repeatBtn.addEventListener("click", () => {
+    let getRepeatBtnText = repeatBtn.innerText;
+
+    switch(getRepeatBtnText){
+        case "repeat":
+            repeatBtn.innerText = "repeat_one";
+            repeatBtn.setAttribute("title", "Song looped");
+            break;
+        case "repeat_one":
+            repeatBtn.innerText = "shuffle";
+            repeatBtn.setAttribute("title", "Playback shuffle");
+            break;
+        case "shuffle":
+            repeatBtn.innerText = "repeat";
+            repeatBtn.setAttribute("title", "Playlist looped");
+            break;
+    }
+})
+
+//after the song ended 
+mainAudio.addEventListener("ended", () => {
+    let getRepeatBtnText = repeatBtn.innerText;
+
+    switch(getRepeatBtnText){
+        case "repeat":
+            nextMusic();
+            break;
+        case "repeat_one":
+            mainAudio.currentTime = 0;
+            loadMusic(musicIndex)
+            playMusic();
+            break;
+        case "shuffle":
+            let randIndex = Math.floor((Math.random() * allMusic.length) + 1 );
+            console.log(randIndex);
+            do{
+                randIndex = Math.floor((Math.random() * allMusic.length) + 1 );
+            }while(musicIndex == randIndex);
+            musicIndex = randIndex;
+            loadMusic(musicIndex);
+            playMusic();
+            break;
+    }
 })
