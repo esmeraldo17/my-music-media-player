@@ -22,5 +22,23 @@
         artist: "Sidjay",
         img:"song-4",
         src: "song-4"
+    },
+    {
+        name: "Saudades",
+        artist: "Sidjay & MC-Cabinda",
+        img:"song-4",
+        src: "song-5"
+    },
+    {
+        name: "Dynasty",
+        artist: "MIIA",
+        img:"song-4",
+        src: "song-6"
+    },
+    {
+        name: "Jinchuriki",
+        artist: "Felicia Rock",
+        img:"song-4",
+        src: "song-7"
     }
  ]
