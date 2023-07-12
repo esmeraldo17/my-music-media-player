@@ -97,7 +97,6 @@ mainAudio.addEventListener("timeupdate", (e) => {
         //update song total duration
         let audioDuration = mainAudio.duration;
         let totalMin = Math.floor(audioDuration / 60);
-        console.log(totalMin)
         let totalSec = Math.floor(audioDuration % 60);
         if(totalSec < 10){
             totalSec= `0${totalSec}`;
